@@ -38,6 +38,7 @@ const updateTodo = async (req, res) => {
 };
 
 const deleteTodo = async (req, res) => {
+  const todoId = req.params.id;
   try {
     if (!todoId) {
       return res.status(200).json({
