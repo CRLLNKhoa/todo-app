@@ -63,7 +63,34 @@ const createUser = (newUser) => {
     });
   };
 
+  const changeAvatar = (data, id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const checkUser = await User.findOne({
+          _id: id,
+        });
+        if (checkUser === null) {
+          resolve({
+            status: "ERR",
+            message: "Không tìm thấy tài khoản!",
+          });
+        }
+  
+        const update = await User.findByIdAndUpdate(id, data, { new: true });
+  
+        resolve({
+          status: "OK",
+          message: "Đổi avatar thành công!",
+          data: update,
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
+
   module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    changeAvatar
   };

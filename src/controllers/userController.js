@@ -38,7 +38,28 @@ const loginUser = async (req, res) => {
     }
 }
 
+const changeAvatar = async (req, res) => {
+    try{
+        const {avatar} = req.body
+        const Id = req.params.id;
+        if(!avatar){
+            return res.status(200).json({
+                status: "ERR",
+                massage:"Nhập chưa đủ thông tin!"
+            })
+        }
+        const response = await UserService.changeAvatar(req.body,Id)
+        return res.status(200).json(response)
+    }
+    catch(e){
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
 module.exports = {
     createUser,
     loginUser,
+    changeAvatar
 }
